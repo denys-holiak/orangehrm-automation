@@ -34,7 +34,7 @@ test.describe('Login', () => {
   }
 
   test('should require both fields when the form is submitted empty', async ({ loginPage }) => {
-    await loginPage.submitEmpty();
+    await loginPage.submit();
 
     await expect(loginPage.requiredFieldErrors).toHaveCount(2);
   });
