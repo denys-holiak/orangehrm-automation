@@ -2,6 +2,8 @@ import { expect, test } from '@app/fixtures';
 import { env } from '@app/config/env';
 import { routes } from '@app/config/routes';
 
+test.use({ storageState: { cookies: [], origins: [] } });
+
 const rejectedCredentials = [
   { reason: 'a wrong password', username: env.username, password: 'wrong-password' },
   { reason: 'an unknown username', username: 'no-such-user', password: env.password },
