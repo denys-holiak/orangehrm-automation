@@ -92,7 +92,7 @@ src/
   api/
     auth.ts              Logs in over HTTP (CSRF token + form POST)
     endpoints.ts         Paths of the REST API used for test data
-    OrangeHrmClient.ts   Creates and removes employees and users
+    ApiClient.ts         Creates and removes employees and users
   config/
     env.ts               Typed, fail-fast access to environment variables
     routes.ts            Application paths in one place

@@ -1,7 +1,7 @@
 /* eslint-disable no-empty-pattern */
 import { test as base } from '@playwright/test';
 import { loginViaApi } from '@app/api/auth';
-import { OrangeHrmClient } from '@app/api/OrangeHrmClient';
+import { ApiClient } from '@app/api/ApiClient';
 import { SideMenu } from '@app/components/SideMenu';
 import { TopMenu } from '@app/components/TopMenu';
 import { env } from '@app/config/env';
@@ -22,7 +22,7 @@ export const test = base.extend<{
   topMenu: TopMenu;
   userBuilder: UserBuilder;
   employeeBuilder: EmployeeBuilder;
-  hrmApi: OrangeHrmClient;
+  apiClient: ApiClient;
   employee: Employee;
   user: NewUser;
   ownSession: boolean;
@@ -75,23 +75,23 @@ export const test = base.extend<{
     await use(new EmployeeBuilder());
   },
 
-  hrmApi: async ({ context }, use) => {
-    await use(new OrangeHrmClient(context.request));
+  apiClient: async ({ context }, use) => {
+    await use(new ApiClient(context.request));
   },
 
   // A brand-new employee for this test alone, removed afterwards together with any
   // user account that was created for them.
-  employee: async ({ hrmApi, employeeBuilder }, use) => {
-    const employee = await hrmApi.createEmployee(employeeBuilder.build());
+  employee: async ({ apiClient, employeeBuilder }, use) => {
+    const employee = await apiClient.createEmployee(employeeBuilder.build());
     await use(employee);
-    await hrmApi.deleteEmployee(employee.empNumber);
+    await apiClient.deleteEmployee(employee.empNumber);
   },
 
   // An enabled ESS account that already exists when the test starts; it goes away
   // with its employee.
-  user: async ({ hrmApi, employee, userBuilder }, use) => {
+  user: async ({ apiClient, employee, userBuilder }, use) => {
     const user = userBuilder.build();
-    await hrmApi.createUser(user, employee.empNumber);
+    await apiClient.createUser(user, employee.empNumber);
     await use(user);
   },
 });

@@ -7,7 +7,7 @@ const roleIds: Record<UserRole, number> = { Admin: 1, ESS: 2 };
 
 // Prepares and removes test data through the application's own REST API, so that the UI
 // tests only spend time on the behaviour they are actually about.
-export class OrangeHrmClient {
+export class ApiClient {
   constructor(private readonly request: APIRequestContext) {}
 
   async createEmployee(employee: NewEmployee): Promise<Employee> {
