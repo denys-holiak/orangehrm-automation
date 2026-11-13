@@ -38,12 +38,15 @@ test.describe('Login', () => {
 
     await expect(loginPage.requiredFieldErrors).toHaveCount(2);
   });
+});
 
+test.describe('Logout', () => {
   test('should log out and return to the login page', async ({
     loginPage,
     dashboardPage,
     page,
   }) => {
+    await loginPage.goto();
     await loginPage.login(env.username, env.password);
     await expect(dashboardPage.heading).toBeVisible();
 
@@ -52,7 +55,9 @@ test.describe('Login', () => {
     await expect(page).toHaveURL(routes.login);
     await expect(loginPage.heading).toBeVisible();
   });
+});
 
+test.describe('Access control', () => {
   test('should redirect an unauthenticated visitor from a protected page to login', async ({
     loginPage,
     page,
