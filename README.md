@@ -103,7 +103,7 @@ src/
     employeeBuilder.ts   Generates a unique employee
     userScenarios.json   Role and status combinations the add-user test covers
   pages/                 One Page Object per application page
-  components/            UI parts shared by several pages (menus, form helpers)
+  components/            UI parts shared by several pages (menus, the form field)
   utils/step.ts          @Step decorator: wraps Page Object actions in test.step()
                          so the HTML report reads as a list of user actions
   fixtures.ts            Custom `test` that hands Page Objects and test data to specs

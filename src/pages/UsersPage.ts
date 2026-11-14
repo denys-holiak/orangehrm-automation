@@ -1,5 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
-import { formGroup } from '@app/components/formControls';
+import { FormField } from '@app/components/FormField';
 import { routes } from '@app/config/routes';
 import { Step } from '@app/utils/step';
 
@@ -17,14 +17,14 @@ const column = { username: 1, role: 2, employeeName: 3, status: 4 } as const;
 export class UsersPage {
   readonly heading: Locator;
   private readonly recordsSummary: Locator;
-  private readonly usernameFilter: Locator;
+  private readonly usernameFilter: FormField;
   private readonly searchButton: Locator;
   private readonly addButton: Locator;
 
   constructor(private readonly page: Page) {
     this.heading = page.getByRole('heading', { name: 'System Users' });
     this.recordsSummary = page.getByText(/Records? Found/).first();
-    this.usernameFilter = formGroup(page, 'Username').getByRole('textbox');
+    this.usernameFilter = new FormField(page, 'Username');
     this.searchButton = page.getByRole('button', { name: 'Search', exact: true });
     this.addButton = page.getByRole('button', { name: 'Add' });
   }
