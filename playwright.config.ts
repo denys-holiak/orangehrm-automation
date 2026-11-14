@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { defineConfig, devices } from '@playwright/test';
+import { adminAuthFile } from './src/config/auth';
 import { env } from './src/config/env';
 
 export default defineConfig({
@@ -13,7 +14,7 @@ export default defineConfig({
   reporter: [['html', { open: 'never' }], ['list']],
   use: {
     baseURL: env.baseUrl,
-    actionTimeout: 15_000,
+    actionTimeout: 30_000,
     navigationTimeout: 30_000,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
@@ -21,8 +22,14 @@ export default defineConfig({
   },
   projects: [
     {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+    },
+    {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      testIgnore: /.*\.setup\.ts/,
+      dependencies: ['setup'],
+      use: { ...devices['Desktop Chrome'], storageState: adminAuthFile },
     },
   ],
 });

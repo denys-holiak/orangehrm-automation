@@ -31,8 +31,8 @@ export class LoginPage {
     await this.submitButton.click();
   }
 
-  @Step('Submit the login form without filling it in')
-  async submitEmpty(): Promise<void> {
+  @Step('Submit the login form')
+  async submit(): Promise<void> {
     await this.submitButton.click();
   }
 }
