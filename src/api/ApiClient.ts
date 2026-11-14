@@ -13,10 +13,7 @@ export class ApiClient {
   async createEmployee(employee: NewEmployee): Promise<Employee> {
     const created = await this.send<{ empNumber: number }>('POST', apiEndpoints.employees, {
       firstName: employee.firstName,
-      middleName: '',
       lastName: employee.lastName,
-      empPicture: null,
-      employeeId: null,
     });
     return { ...employee, empNumber: created.empNumber };
   }
